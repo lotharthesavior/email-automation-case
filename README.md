@@ -5,7 +5,6 @@
 ## Requirement Details:
 
 - Emails must be asynchronous.
-- Must persist the dispatched email.
 - Must persist the dispatched email in the database.
 - Must be protected by token - **for this let's use [JWT](https://github.com/tymondesigns/jwt-auth)**.
 - Must be run queues using Horizon/Redis style.
