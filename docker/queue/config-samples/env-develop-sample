@@ -1,0 +1,113 @@
+APP_NAME=WordsTree
+APP_ENV=local
+APP_KEY=base64:ZcVFd+Iahi7GdFsdBoAc7lncoplrSFtIyUv0lWmSXvs=
+APP_DEBUG=false
+APP_URL=http://localhost:8001
+
+LOG_CHANNEL=stack
+
+# ------------------------------------------------
+# Database
+# ------------------------------------------------
+
+DB_CONNECTION=mysql
+DB_HOST_TEST=127.0.0.1
+DB_PORT_TEST=33060
+
+DB_HOST=wtmysql
+DB_PORT=3306
+
+#DB_HOST=127.0.0.1
+#DB_PORT=33062
+
+DB_DATABASE=wordstree
+DB_USERNAME=root
+DB_PASSWORD=secret
+
+# for production, check the database administration document
+
+# ------------------------------------------------
+# Telescope variables
+# ------------------------------------------------
+
+TELESCOPE_ENABLED=true
+
+# ------------------------------------------------
+# Drivers
+# ------------------------------------------------
+
+# BROADCAST_DRIVER=log
+# BROADCAST_DRIVER=redis
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+# QUEUE_CONNECTION=sync
+# QUEUE_CONNECTION=database
+QUEUE_CONNECTION=redis
+
+# ------------------------------------------------
+# Redis Credentials
+# ------------------------------------------------
+
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+REDIS_PREFIX=wt-event-
+
+# ------------------------------------------------
+# Mail Credentials
+# ------------------------------------------------
+
+# Mailtrap
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=bcf940802d3c11
+MAIL_PASSWORD=68e77dc89a1dd0
+
+# Sendgrid
+# get this from the administration document
+
+# Generic
+# MAIL_DRIVER=smtp
+# MAIL_ENCRYPTION=tls
+# MAIL_FROM_ADDRESS=noreply@wordstree.com
+# MAIL_FROM_NAME=WordsTreeTeam
+
+# Sendgrid Credentials
+# get this from the administration document
+
+# ------------------------------------------------
+# Google Credentials
+# ------------------------------------------------
+
+# get this from the administration document
+
+# --------------------------------------------------
+# Github Credentials
+# ------------------------------------------------
+
+# get this from the administration document
+
+# ------------------------------------------------
+# ShareDB
+# ------------------------------------------------
+
+SHAREDB_SOCKETIO_URL=ws://localhost
+SHAREDB_SOCKETIO_PORT=8112
+SHAREDB_MARKDOWN_COLLECTION=markdowncollection
+
+# swoole
+# LARAVELS_LISTEN_IP=php-fpm
+# LARAVEL_BASE_PATH=/var/www/laravel-dashboard
+
+# ---------------------------------------------
+# Storage Management
+# ---------------------------------------------
+
+BASE_DIRECTORY=images
+# storage size in bytes
+# BASE_UPLOAD_LIMIT_PER_USER=1000000000
+BASE_UPLOAD_LIMIT_PER_USER=14860290
+
+JWT_SECRET=9h811HvT435Km9uiQSrHfmWDT7muXH5NqbjwCDGRCbTbaemTM2xbgss2YM2CIVo9j
+JWT_TTL=10080

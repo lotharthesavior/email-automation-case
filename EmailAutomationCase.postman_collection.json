@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "87e14028-eef6-4cd1-8aaa-5b9854803eb4",
+		"name": "Email Automation Case",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Send Emails",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// get jwt token",
+							"let url = pm.environment.get(\"url\") + \"/api/auth/login\";",
+							"let postRequest = {",
+							"  url: url,",
+							"  method: 'POST',",
+							"  header: ['Accept:application/json','Content-Type:application/json'],",
+							"  body: {",
+							"    mode: 'raw',",
+							"    raw: JSON.stringify({",
+							"        email: pm.environment.get(\"email\"),",
+							"        password: pm.environment.get(\"password\")",
+							"    })",
+							"  }",
+							"};",
+							"pm.sendRequest(postRequest, function (err, response) {",
+							"    let parsedResponse = response.json();",
+							"    console.log(parsedResponse);",
+							"    pm.environment.set(\"jwt\", parsedResponse.access_token);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"email\": \"john2@galt.com\",\n        \"subject\": \"Some subject\",\n        \"body\": \"This is my email body\",\n        \"attachments\": [\n            {\n                \"name\": \"file1.png\",\n                \"value\": \"iVBORw0KGgoAAAANSUhEUgAAADwAAAArCAYAAAAkL+tRAAAABHNCSVQICAgIfAhkiAAAABl0RVh0U29mdHdhcmUAZ25vbWUtc2NyZWVuc2hvdO8Dvz4AAAMmSURBVGiB7ZhLaBNRFEBPJ5M2ySRpbC3UlgZR8UOwWhdaPwuLBRfale5cKChSRFDEjSsVV25cKKIrvxRSLVhotdRoVaiY+ieltMV00Qq1C5WBms+YJnEh6cc2mjSZmep4NkOYyZ17eO++d98UDH4IJDEQgt4JaM1/4X8dQwk7H3cZSzh+/ppxhC3BIVxm0TjChcPDgIFqWAiHf151zkMzEjYbYCRhSQIMJKwsrQIMJBwrr0COTRhHGMC81WMsYWGZG1HvJPKFeWwUa98A4ugnCkIREiUuIhtqiK5YPvlMdN1aCv7287AlOISl6Q7Sy8E574c8bqKH90+KayIcUxRKu58jBnpJfPoCgLCklGRlJTF3FcrSKmLlFVnHtQSHKD12LqNnQ417kRt2qz+lTbKM/eBJHNGJmTf6RoB3kz/HF0uI9VsIb66dMQ1/h62tPeM8pKstRNesUV+4+PpNrL/KzoHjcwi8PqxeH+OLJUy76mbVYK7Yj55Rf0rb9xyiOAPhdIQ8bhI7txPxrJ417e3+HorPXckqnuojLNiLIAdhqW8E+m7hACL1NUR31BGurgbgW+0mxI1daResOfOZdyYZIq5fmbdY1kfvWHTqAs7GEzgfdwEgnz5FyOPOOIbqU9oky5TvO65K7PGqEiaOHCBcXU3J7SasXt8f/6PJtjSfWsuGSH0N4YbdWPr7iV3y4jKnr1TNGg+1pQGiDdtIRkJ87+5Nu1Bq2mmZx0Zxtj7A0tat2juUeJxIIpl2lHVpLW2BAMLZizltV/NFt146piiUPfT9sebyje6Hh1Sfzd12HB+/qv4+3YWnYwsEKLx3P6tGIlsWlHAKkyxjHRik6H0vis+f11pfkF884i4XkdWriFeWI5Q58xp7wXzxSI1q4Qs/Sscr1RYyXYWnSwqdrykymQCwqrhq6yJsCQ4hPXpCQeuzSUlSV5XRTNgky0hv3iJ0Pv155APNJKejurB5bBSH7wnK7Q4cGjYY6VAtA7u/B7Fz6nCuZl1mQ96zsPt7EG40a9I1zYe8CS900RQ5C5tkGZe3RdUjXz7JSdjV1o54uXlqa/kL+AE2ACw8aLH4HgAAAABJRU5ErkJggg==\"\n            }\n        ]\n    },\n    {\n        \"email\": \"john@galt.com\",\n        \"subject\": \"Some subject 2\",\n        \"body\": \"This is my email body 2\",\n        \"attachments\": [\n            {\n                \"name\": \"file1\",\n                \"value\": \"iVBORw0KGgoAAAANSUhEUgAAADwAAAArCAYAAAAkL+tRAAAABHNCSVQICAgIfAhkiAAAABl0RVh0U29mdHdhcmUAZ25vbWUtc2NyZWVuc2hvdO8Dvz4AAAMmSURBVGiB7ZhLaBNRFEBPJ5M2ySRpbC3UlgZR8UOwWhdaPwuLBRfale5cKChSRFDEjSsVV25cKKIrvxRSLVhotdRoVaiY+ieltMV00Qq1C5WBms+YJnEh6cc2mjSZmep4NkOYyZ17eO++d98UDH4IJDEQgt4JaM1/4X8dQwk7H3cZSzh+/ppxhC3BIVxm0TjChcPDgIFqWAiHf151zkMzEjYbYCRhSQIMJKwsrQIMJBwrr0COTRhHGMC81WMsYWGZG1HvJPKFeWwUa98A4ugnCkIREiUuIhtqiK5YPvlMdN1aCv7287AlOISl6Q7Sy8E574c8bqKH90+KayIcUxRKu58jBnpJfPoCgLCklGRlJTF3FcrSKmLlFVnHtQSHKD12LqNnQ417kRt2qz+lTbKM/eBJHNGJmTf6RoB3kz/HF0uI9VsIb66dMQ1/h62tPeM8pKstRNesUV+4+PpNrL/KzoHjcwi8PqxeH+OLJUy76mbVYK7Yj55Rf0rb9xyiOAPhdIQ8bhI7txPxrJ417e3+HorPXckqnuojLNiLIAdhqW8E+m7hACL1NUR31BGurgbgW+0mxI1daResOfOZdyYZIq5fmbdY1kfvWHTqAs7GEzgfdwEgnz5FyOPOOIbqU9oky5TvO65K7PGqEiaOHCBcXU3J7SasXt8f/6PJtjSfWsuGSH0N4YbdWPr7iV3y4jKnr1TNGg+1pQGiDdtIRkJ87+5Nu1Bq2mmZx0Zxtj7A0tat2juUeJxIIpl2lHVpLW2BAMLZizltV/NFt146piiUPfT9sebyje6Hh1Sfzd12HB+/qv4+3YWnYwsEKLx3P6tGIlsWlHAKkyxjHRik6H0vis+f11pfkF884i4XkdWriFeWI5Q58xp7wXzxSI1q4Qs/Sscr1RYyXYWnSwqdrykymQCwqrhq6yJsCQ4hPXpCQeuzSUlSV5XRTNgky0hv3iJ0Pv155APNJKejurB5bBSH7wnK7Q4cGjYY6VAtA7u/B7Fz6nCuZl1mQ96zsPt7EG40a9I1zYe8CS900RQ5C5tkGZe3RdUjXz7JSdjV1o54uXlqa/kL+AE2ACw8aLH4HgAAAABJRU5ErkJggg==\"\n            }\n        ]\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/send",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"send"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbC52YW5pbGxhc29mdGFwcC5jb21cL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MTQ3MjQyODksImV4cCI6MTYxNDcyNzg4OSwibmJmIjoxNjE0NzI0Mjg5LCJqdGkiOiJrQmVYV2JyOHowNzhjWHZGIiwic3ViIjoxLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.M1oBGbnuvvdJSpBMuXEDREmU5c1v_p3Xjk4E8KkX8ko",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Emails Sent",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// get jwt token",
+							"let url = pm.environment.get(\"url\") + \"/api/auth/login\";",
+							"let postRequest = {",
+							"  url: url,",
+							"  method: 'POST',",
+							"  header: ['Accept:application/json','Content-Type:application/json'],",
+							"  body: {",
+							"    mode: 'raw',",
+							"    raw: JSON.stringify({",
+							"        email: pm.environment.get(\"email\"),",
+							"        password: pm.environment.get(\"password\")",
+							"    })",
+							"  }",
+							"};",
+							"pm.sendRequest(postRequest, function (err, response) {",
+							"    let parsedResponse = response.json();",
+							"    console.log(parsedResponse);",
+							"    pm.environment.set(\"jwt\", parsedResponse.access_token);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/list",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

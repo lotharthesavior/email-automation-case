@@ -1,0 +1,100 @@
+version: '3.7'
+
+services:
+
+  nginx:
+    image: nginx:latest
+    container_name: ${DOCKER_APP}-nginx
+    expose:
+      - 80
+    volumes:
+      - '.:/var/www/html'
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php
+    networks:
+      email-automation-network:
+        ipv4_address: ${DOCKER_APP_IP}.0.2
+
+  php:
+    build:
+      context: ./docker/php
+    container_name: ${DOCKER_APP}-php
+    volumes:
+      - ".:/var/www/html"
+    expose:
+      - 9000
+    environment:
+      XDEBUG_CONFIG: remote_host=host.docker.internal
+    links:
+      - mysql
+      - redis
+    networks:
+      email-automation-network:
+        ipv4_address: ${DOCKER_APP_IP}.0.3
+
+  queue:
+    build:
+      context: ./docker/queue
+    container_name: ${DOCKER_APP}-queue
+    links:
+      - mysql
+      - redis
+    volumes:
+      - '.:/var/www/html'
+    command: /entrypoint.sh
+    networks:
+      email-automation-network:
+        ipv4_address: ${DOCKER_APP_IP}.0.4
+
+  mysql:
+    build:
+      context: ./docker/mysql
+      network: host
+    container_name: ${DOCKER_APP}-mysql
+    restart: unless-stopped
+    tty: true
+    expose:
+      - "3306"
+    environment:
+      MYSQL_DATABASE: the-database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+    volumes:
+      - ./docker/my.cnf:/etc/mysql/conf.d/wt-my.cnf
+      - ./docker/mysql_data:/var/lib/mysql
+    networks:
+      email-automation-network:
+        ipv4_address: ${DOCKER_APP_IP}.0.5
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ${DOCKER_APP}-phpmyadmin
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - ./phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+    environment:
+      PMA_HOST: wtmysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    networks:
+      email-automation-network:
+        ipv4_address: ${DOCKER_APP_IP}.0.6
+
+  redis:
+    image: redis:5.0-alpine
+    container_name: ${DOCKER_APP}-redis
+    networks:
+      email-automation-network:
+        ipv4_address: ${DOCKER_APP_IP}.0.7
+
+networks:
+  email-automation-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${DOCKER_APP_IP}.0.0/16
+          gateway: ${DOCKER_APP_IP}.0.1

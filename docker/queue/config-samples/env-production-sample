@@ -1,0 +1,94 @@
+APP_NAME=WordsTree
+APP_ENV=production
+APP_KEY=base64:ULoif6/J6Jasm/ZyNZrB19xx6vq6nP7XpfQRfziyRsw=
+APP_DEBUG=true
+APP_URL=https://dashboard.wordstree.com
+SPA_URL=https://app.wordstree.com
+
+LOG_CHANNEL=stack
+
+# ------------------------------------------------
+# Database
+# ------------------------------------------------
+
+DB_CONNECTION=mysql
+DB_HOST=167.71.105.197
+DB_PORT=3306
+DB_DATABASE=wordstree_dashboard
+DB_USERNAME=wordstree
+DB_PASSWORD=$2y$10a$FKscdzR:bminnxXxL6qRrI-O2vBU9F9QqNKI9X!PEAP5TAgcixLoHvLa
+
+# ------------------------------------------------
+# Telescope variables
+# ------------------------------------------------
+
+TELESCOPE_ENABLED=true
+
+# ------------------------------------------------
+# Drivers
+# ------------------------------------------------
+
+BROADCAST_DRIVER=log
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+QUEUE_CONNECTION=redis
+
+# ------------------------------------------------
+# Redis Credentials
+# ------------------------------------------------
+
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+# ------------------------------------------------
+# Mail Credentials
+# ------------------------------------------------
+
+MAIL_HOST=smtp.sendgrid.net
+MAIL_PORT=587
+MAIL_USERNAME=lotharthesavior
+MAIL_PASSWORD=EkFrZAVfHGjPtaGFXz!1
+
+MAIL_DRIVER=smtp
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=noreply@wordstree.com
+MAIL_FROM_NAME=WordsTreeTeam
+
+SENDGRID_API_KEY=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
+
+# ------------------------------------------------
+# Google Credentials
+# ------------------------------------------------
+
+GOOGLE_CLIENT_ID=458786444574-ac4g8eaine0o3drepm90sv22fsjaeoab.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=NupxPnzVceHYJH8kFTa5Z_1b
+
+# --------------------------------------------------
+# Github Credentials
+# ------------------------------------------------
+
+GITHUB_CLIENT_ID=90a75fadf5edf35b4e54
+GITHUB_CLIENT_SECRET=4fc61613e6dfc97ac01b64402e102fd898c82b64
+
+# ------------------------------------------------
+# ShareDB
+# ------------------------------------------------
+
+SHAREDB_SOCKETIO_URL=wss://sharedb.wordstree.com
+SHAREDB_SOCKETIO_PORT=8443 # 8112
+SHAREDB_MARKDOWN_COLLECTION=markdowncollection
+
+# ---------------------------------------------
+# Storage Management
+# ---------------------------------------------
+
+BASE_DIRECTORY=images
+# storage size in bytes
+BASE_UPLOAD_LIMIT_PER_USER=1000000000
+
+
+
+JWT_SECRET=9h811HvTvFjdKm9uiQSrHfmWDT7muXH5NqbjwCDGRCbTbaemTM2xbg2YM2CIVo9j
+JWT_TTL=10080
